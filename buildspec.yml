@@ -5,17 +5,15 @@ phases:
     runtime-versions:
       python: 3.7
     commands:
-      - |
-        echo Instaling packages started..
-
-        python3 -m pip install pipenv
-        npm install -g aws-cdk
-        pipenv install
-
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+  pre_build:
+    commands:
+      - docker build -t sample-service .
   build:
     commands:
-      - |
-        docker build -t sample-service .
+      - npm install -g aws-cdk
+      - docker images
     environment:
       DEBUG: true
     ports:
