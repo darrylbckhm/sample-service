@@ -12,7 +12,7 @@ phases:
         npm install -g aws-cdk
         pipenv install
 
-  build:
+  pre-build:
     commands:
       - |
         echo Launching virtual environments started..
@@ -22,14 +22,14 @@ phases:
         echo Translating into cloudformation started..
         cdk synth sample-service-batch
 
-  services:
-    web:
-      build: docker build -t sample-service .
-      command: docker run -p 5000:5000 -it sample-service
-      environment:
-        DEBUG: true
-      ports:
-        - "5000:5000"
+  build:
+    commands:
+      - |
+      docker build -t sample-service .
+    environment:
+      DEBUG: true
+    ports:
+      - "5000:5000"
 
 artifacts:
   base-directory: cdk.out
