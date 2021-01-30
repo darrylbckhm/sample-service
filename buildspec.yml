@@ -12,16 +12,6 @@ phases:
         npm install -g aws-cdk
         pipenv install
 
-  pre_build:
-    commands:
-      - |
-        echo "Launching virtual environments started.."
-        export VENV_HOME_DIR=$(pipenv --venv)
-        . $VENV_HOME_DIR/bin/activate
-
-        echo "Translating into cloudformation started.."
-        cdk synth sample-service-batch
-
   build:
     commands:
       - |
@@ -30,7 +20,3 @@ phases:
       DEBUG: true
     ports:
       - "5000:5000"
-
-artifacts:
-  base-directory: cdk.out
-  files: '**/*'
