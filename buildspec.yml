@@ -26,4 +26,3 @@ phases:
       - cat imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
-templatepath: cdk.out::sample-service-batch.template.json
