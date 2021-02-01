@@ -15,8 +15,6 @@ phases:
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
-    env:
-      - privileged-mode: true
   post_build:
     commands:
       - echo Build completed on `date`
@@ -26,7 +24,6 @@ phases:
       - echo Writing image definitions file...
       - printf '[{"name":"<Your Container Name>","imageUri":"%s"}]'    $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
-    env:
-      - privileged-mode: true
 artifacts:
   files: imagedefinitions.json
+templatepath: cdk.out::sample-service-batch.template.json
