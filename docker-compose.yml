@@ -1,0 +1,7 @@
+services:
+  web:
+    command: docker run -p 5000:5000 -it sample-service
+    environment:
+      DEBUG: true
+    ports:
+      - "5000:5000"
